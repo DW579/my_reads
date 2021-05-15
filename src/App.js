@@ -5,23 +5,37 @@ import Main from "./pages/Main";
 import Search from "./pages/Search";
 import ViewAll from "./pages/ViewAll";
 import * as BooksAPI from "./utils/BooksAPI";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
     state = {
-        current_reads: [],
-        want_reads: [],
-        reads: []
+        currentlyReading: [],
+        wantToRead: [],
+        read: [],
     };
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
             this.setState(() => ({
-                current_reads: books.filter((book) => book.shelf === "currentlyReading"),
-                want_reads: books.filter((book) => book.shelf === "wantToRead"),
-                reads: books.filter((book) => book.shelf === "read")
+                currentlyReading: books.filter(
+                    (book) => book.shelf === "currentlyReading"
+                ),
+                wantToRead: books.filter((book) => book.shelf === "wantToRead"),
+                read: books.filter((book) => book.shelf === "read"),
             }));
         });
+    }
+
+    updateShelf = (bookId, currentShelf, moveToShelf) => {
+        const book = this.state[currentShelf].filter((book) => book.id === bookId);
+
+        this.setState(() => ({
+            currentlyReading: ((moveToShelf === "currentlyReading") ? this.state.currentlyReading.concat(book[0]) : this.state.currentlyReading.filter((book) => book.id !== bookId)),
+            wantToRead: ((moveToShelf === "wantToRead") ? this.state.wantToRead.concat(book[0]) : this.state.wantToRead.filter((book) => book.id !== bookId)),
+            read: ((moveToShelf === "read") ? this.state.read.concat(book[0]) : this.state.read.filter((book) => book.id !== bookId)),
+        }))
+        
+        BooksAPI.update(bookId, moveToShelf);
     }
 
     render() {
@@ -34,7 +48,14 @@ class App extends Component {
                                 exact
                                 path="/"
                                 render={() => (
-                                    <Main current_reads={this.state.current_reads} want_reads={this.state.want_reads} reads={this.state.reads}></Main>
+                                    <Main
+                                        currentlyReading={
+                                            this.state.currentlyReading
+                                        }
+                                        wantToRead={this.state.wantToRead}
+                                        read={this.state.read}
+                                        updateShelf={this.updateShelf}
+                                    ></Main>
                                 )}
                             ></Route>
                             <Route

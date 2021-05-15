@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 class Main extends Component {
     render() {
         // Store props into variables for cleaner use of this.props
-        const { current_reads, want_reads, reads } = this.props;
+        const { currentlyReading, wantToRead, read, updateShelf } = this.props;
 
         return (
             <div>
@@ -27,7 +27,7 @@ class Main extends Component {
                 <Row>
                     <Col>
                         <h1>Current Reads</h1>
-                        {current_reads.map((book) => (
+                        {currentlyReading.map((book) => (
                             <Card
                                 style={{
                                     width: "18rem",
@@ -51,13 +51,28 @@ class Main extends Component {
                                         id="dropdown-basic-button"
                                         title="Move to..."
                                     >
-                                        <Dropdown.Item>
-                                            Current Reads
-                                        </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={() =>
+                                                updateShelf(
+                                                    book.id,
+                                                    "currentlyReading",
+                                                    "wantToRead"
+                                                )
+                                            }
+                                        >
                                             Want to read
                                         </Dropdown.Item>
-                                        <Dropdown.Item>Read</Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={() =>
+                                                updateShelf(
+                                                    book.id,
+                                                    "currentlyReading",
+                                                    "read"
+                                                )
+                                            }
+                                        >
+                                            Read
+                                        </Dropdown.Item>
                                     </DropdownButton>
                                 </Card.Body>
                             </Card>
@@ -67,7 +82,7 @@ class Main extends Component {
                 <Row>
                     <Col>
                         <h1>Want to read</h1>
-                        {want_reads.map((book) => (
+                        {wantToRead.map((book) => (
                             <Card
                                 style={{
                                     width: "18rem",
@@ -91,13 +106,28 @@ class Main extends Component {
                                         id="dropdown-basic-button"
                                         title="Move to..."
                                     >
-                                        <Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={() =>
+                                                updateShelf(
+                                                    book.id,
+                                                    "wantToRead",
+                                                    "currentlyReading"
+                                                )
+                                            }
+                                        >
                                             Current Reads
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
-                                            Want to read
+                                        <Dropdown.Item
+                                            onClick={() =>
+                                                updateShelf(
+                                                    book.id,
+                                                    "wantToRead",
+                                                    "read"
+                                                )
+                                            }
+                                        >
+                                            Read
                                         </Dropdown.Item>
-                                        <Dropdown.Item>Read</Dropdown.Item>
                                     </DropdownButton>
                                 </Card.Body>
                             </Card>
@@ -107,7 +137,7 @@ class Main extends Component {
                 <Row>
                     <Col>
                         <h1>Read</h1>
-                        {reads.map((book) => (
+                        {read.map((book) => (
                             <Card
                                 style={{
                                     width: "18rem",
@@ -131,13 +161,28 @@ class Main extends Component {
                                         id="dropdown-basic-button"
                                         title="Move to..."
                                     >
-                                        <Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={() =>
+                                                updateShelf(
+                                                    book.id,
+                                                    "read",
+                                                    "currentlyReading"
+                                                )
+                                            }
+                                        >
                                             Current Reads
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        <Dropdown.Item
+                                            onClick={() =>
+                                                updateShelf(
+                                                    book.id,
+                                                    "read",
+                                                    "wantToRead"
+                                                )
+                                            }
+                                        >
                                             Want to read
                                         </Dropdown.Item>
-                                        <Dropdown.Item>Read</Dropdown.Item>
                                     </DropdownButton>
                                 </Card.Body>
                             </Card>
