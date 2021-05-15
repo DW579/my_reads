@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import { Container, Row, Col, Navbar } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import Main from "./pages/Main";
 import Search from "./pages/Search";
 import ViewAll from "./pages/ViewAll";
@@ -24,13 +24,6 @@ class App extends Component {
         return (
             <div>
                 <Container fluid>
-                    <Row>
-                        <Col>
-                            <Navbar bg="primary" variant="dark">
-                                <Navbar.Brand href="/">My Reads</Navbar.Brand>
-                            </Navbar>
-                        </Col>
-                    </Row>
                     <Row>
                         <Col>
                             <Route

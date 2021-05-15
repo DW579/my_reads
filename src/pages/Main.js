@@ -1,11 +1,11 @@
 import React, { Component } from "react";
+import { Row, Col, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 class Main extends Component {
     render() {
         // Store props into variables for cleaner use of this.props
         const { books } = this.props;
-
-        console.log(books);
 
         // Filter from books all Current Reads
         let current_reads = books.filter(book => book.shelf === "currentlyReading");
@@ -18,6 +18,15 @@ class Main extends Component {
 
         return (
             <div>
+                <Row>
+                    <Col>
+                        <Navbar bg="dark" variant="dark">
+                            <Navbar.Brand href="/">My Reads</Navbar.Brand>
+                            <Link to="/search">Add Book</Link>
+                        </Navbar>
+                        
+                    </Col>
+                </Row>
                 <h1>Current Reads</h1>
                 <ol>
                     {current_reads.map((book) => (
