@@ -9,13 +9,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
     state = {
-        books: [],
+        current_reads: [],
+        want_reads: [],
+        reads: []
     };
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
             this.setState(() => ({
-                books,
+                current_reads: books.filter((book) => book.shelf === "currentlyReading"),
+                want_reads: books.filter((book) => book.shelf === "wantToRead"),
+                reads: books.filter((book) => book.shelf === "read")
             }));
         });
     }
@@ -30,7 +34,7 @@ class App extends Component {
                                 exact
                                 path="/"
                                 render={() => (
-                                    <Main books={this.state.books}></Main>
+                                    <Main current_reads={this.state.current_reads} want_reads={this.state.want_reads} reads={this.state.reads}></Main>
                                 )}
                             ></Route>
                             <Route
