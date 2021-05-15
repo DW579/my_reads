@@ -27,15 +27,38 @@ class App extends Component {
     }
 
     updateShelf = (bookId, currentShelf, moveToShelf) => {
-        const book = this.state[currentShelf].filter((book) => book.id === bookId);
+        const book = this.state[currentShelf].filter(
+            (book) => book.id === bookId
+        );
 
         this.setState(() => ({
-            currentlyReading: ((moveToShelf === "currentlyReading") ? this.state.currentlyReading.concat(book[0]) : this.state.currentlyReading.filter((book) => book.id !== bookId)),
-            wantToRead: ((moveToShelf === "wantToRead") ? this.state.wantToRead.concat(book[0]) : this.state.wantToRead.filter((book) => book.id !== bookId)),
-            read: ((moveToShelf === "read") ? this.state.read.concat(book[0]) : this.state.read.filter((book) => book.id !== bookId)),
-        }))
-        
+            currentlyReading:
+                moveToShelf === "currentlyReading"
+                    ? this.state.currentlyReading.concat(book[0])
+                    : this.state.currentlyReading.filter(
+                          (book) => book.id !== bookId
+                      ),
+            wantToRead:
+                moveToShelf === "wantToRead"
+                    ? this.state.wantToRead.concat(book[0])
+                    : this.state.wantToRead.filter(
+                          (book) => book.id !== bookId
+                      ),
+            read:
+                moveToShelf === "read"
+                    ? this.state.read.concat(book[0])
+                    : this.state.read.filter((book) => book.id !== bookId),
+        }));
+
         BooksAPI.update(bookId, moveToShelf);
+    };
+
+    addToShelf = (book, moveToShelf) => {
+        this.setState(() => ({
+            currentlyReading: ((moveToShelf === "currentlyReading") ? this.state.currentlyReading.concat(book) : this.state.currentlyReading),
+            wantToRead: ((moveToShelf === "wantToRead") ? this.state.wantToRead.concat(book) : this.state.wantToRead),
+            read: ((moveToShelf === "read") ? this.state.read.concat(book) : this.state.read)
+        }))
     }
 
     render() {
@@ -60,7 +83,11 @@ class App extends Component {
                             ></Route>
                             <Route
                                 path="/search"
-                                render={() => <Search></Search>}
+                                render={() => (
+                                    <Search
+                                        addToShelf={this.addToShelf}
+                                    ></Search>
+                                )}
                             ></Route>
                             <Route
                                 path="/view_all"
