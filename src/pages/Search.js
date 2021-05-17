@@ -9,6 +9,7 @@ import {
     Dropdown,
 } from "react-bootstrap";
 import * as BooksAPI from "../utils/BooksAPI";
+import { Link } from "react-router-dom";
 
 class Search extends Component {
     state = {
@@ -30,8 +31,8 @@ class Search extends Component {
     };
 
     updateSearchState = () => {
-        console.log("update search")
-    }
+        console.log("update search");
+    };
 
     render() {
         const { addToShelf } = this.props;
@@ -48,6 +49,13 @@ class Search extends Component {
                                 onKeyPress={(event) => this.handleSearch(event)}
                             />
                         </InputGroup>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Link to="/">
+                            Back
+                        </Link>
                     </Col>
                 </Row>
                 <Row>
@@ -83,13 +91,12 @@ class Search extends Component {
                                                     "currentlyReading"
                                                 )
                                             }
-                                        >Currently Reading</Dropdown.Item>
+                                        >
+                                            Currently Reading
+                                        </Dropdown.Item>
                                         <Dropdown.Item
                                             onClick={() =>
-                                                addToShelf(
-                                                    book,
-                                                    "wantToRead"
-                                                )
+                                                addToShelf(book, "wantToRead")
                                             }
                                         >
                                             Want to read
