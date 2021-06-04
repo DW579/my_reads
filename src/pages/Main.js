@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Row, Col, DropdownButton, Dropdown } from "react-bootstrap";
+import { Row, Col, DropdownButton, Dropdown, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import * as BooksAPI from "../utils/BooksAPI";
 
 class Main extends Component {
@@ -34,6 +35,14 @@ class Main extends Component {
     render() {
         return (
             <div>
+                <Row>
+                    <Col>
+                        <Navbar bg="dark" variant="dark">
+                            <Navbar.Brand href="/">My Reads</Navbar.Brand>
+                            <Link to="/search">Add Book</Link>
+                        </Navbar>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
                         <h1>Currently Reading</h1>
