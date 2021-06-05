@@ -1,18 +1,110 @@
 import React, { Component } from "react";
-import { Row, Col, InputGroup, FormControl, DropdownButton, Dropdown } from "react-bootstrap";
+import {
+    Row,
+    Col,
+    InputGroup,
+    FormControl,
+    DropdownButton,
+    Dropdown,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as BooksAPI from "../utils/BooksAPI";
 
 class Search extends Component {
     state = {
         books: [],
-        search_terms: ['android', 'art', 'artificial intelligence', 'astronomy', 'austen', 'baseball', 'basketball', 'bhagat', 'biography', 'brief', 'business', 'camus', 'cervantes', 'christie', 'classics', 'comics', 'cook', 'cricket', 'cycling', 'desai', 'design', 'development', 'digital marketing', 'drama', 'drawing', 'dumas', 'education', 'everything', 'fantasy', 'film', 'finance', 'first', 'fitness', 'football', 'future', 'games', 'gandhi', 'homer', 'horror', 'hugo', 'ibsen', 'journey', 'kafka', 'king', 'lahiri', 'larsson', 'learn', 'literary fiction', 'make', 'manage', 'marquez', 'money', 'mystery', 'negotiate', 'painting', 'philosophy', 'photography', 'poetry', 'production', 'programming', 'react', 'redux', 'river', 'robotics', 'rowling', 'satire', 'science fiction', 'shakespeare', 'singh', 'swimming', 'tale', 'thrun', 'time', 'tolstoy', 'travel', 'ultimate', 'virtual reality', 'web development', 'ios']
+        search_terms: [
+            "android",
+            "art",
+            "artificial intelligence",
+            "astronomy",
+            "austen",
+            "baseball",
+            "basketball",
+            "bhagat",
+            "biography",
+            "brief",
+            "business",
+            "camus",
+            "cervantes",
+            "christie",
+            "classics",
+            "comics",
+            "cook",
+            "cricket",
+            "cycling",
+            "desai",
+            "design",
+            "development",
+            "digital marketing",
+            "drama",
+            "drawing",
+            "dumas",
+            "education",
+            "everything",
+            "fantasy",
+            "film",
+            "finance",
+            "first",
+            "fitness",
+            "football",
+            "future",
+            "games",
+            "gandhi",
+            "homer",
+            "horror",
+            "hugo",
+            "ibsen",
+            "journey",
+            "kafka",
+            "king",
+            "lahiri",
+            "larsson",
+            "learn",
+            "literary fiction",
+            "make",
+            "manage",
+            "marquez",
+            "money",
+            "mystery",
+            "negotiate",
+            "painting",
+            "philosophy",
+            "photography",
+            "poetry",
+            "production",
+            "programming",
+            "react",
+            "redux",
+            "river",
+            "robotics",
+            "rowling",
+            "satire",
+            "science fiction",
+            "shakespeare",
+            "singh",
+            "swimming",
+            "tale",
+            "thrun",
+            "time",
+            "tolstoy",
+            "travel",
+            "ultimate",
+            "virtual reality",
+            "web development",
+            "ios",
+        ],
     };
 
     handleSearch = (event) => {
-        if (event.code === "Enter" && this.state.search_terms.find(term => term === event.target.value.toLowerCase())) {
+        if (
+            event.code === "Enter" &&
+            this.state.search_terms.find(
+                (term) => term === event.target.value.toLowerCase()
+            )
+        ) {
             BooksAPI.search(event.target.value).then((books) => {
-                console.log(books)
+                console.log(books);
 
                 if (books.length > 1) {
                     this.setState(() => ({
@@ -22,7 +114,7 @@ class Search extends Component {
             });
         }
 
-        if(event.code === "Enter") {
+        if (event.code === "Enter") {
             event.target.value = "";
         }
     };
@@ -60,48 +152,49 @@ class Search extends Component {
                 </Row>
                 <Row>
                     {this.state.books.map((book) => (
-                            <Col xs="12" sm="2" key={book.id}>
-                                <div>
+                        <Col xs="12" sm="2" key={book.id}>
+                            <div>
+                                {book.imageLinks !== undefined && (
                                     <img
                                         src={book.imageLinks.thumbnail}
                                         alt=""
                                     />
-                                    <p>{book.title}</p>
-                                    {(book.authors !== undefined) && book.authors.map((author) => (
+                                )}
+
+                                <p>{book.title}</p>
+                                {book.authors !== undefined &&
+                                    book.authors.map((author) => (
                                         <p key={author}>{author}</p>
                                     ))}
-                                    <DropdownButton title="Move to...">
-                                        <Dropdown.Item
-                                            onClick={() =>
-                                                this.updateBook(
-                                                    book,
-                                                    "currentlyReading"
-                                                )
-                                            }
-                                        >
-                                            Currently Reading
-                                        </Dropdown.Item>
-                                        <Dropdown.Item
-                                            onClick={() =>
-                                                this.updateBook(
-                                                    book,
-                                                    "wantToRead"
-                                                )
-                                            }
-                                        >
-                                            Want to Read
-                                        </Dropdown.Item>
-                                        <Dropdown.Item
-                                            onClick={() =>
-                                                this.updateBook(book, "read")
-                                            }
-                                        >
-                                            Read
-                                        </Dropdown.Item>
-                                    </DropdownButton>
-                                </div>
-                            </Col>
-                        ))}
+                                <DropdownButton title="Move to...">
+                                    <Dropdown.Item
+                                        onClick={() =>
+                                            this.updateBook(
+                                                book,
+                                                "currentlyReading"
+                                            )
+                                        }
+                                    >
+                                        Currently Reading
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        onClick={() =>
+                                            this.updateBook(book, "wantToRead")
+                                        }
+                                    >
+                                        Want to Read
+                                    </Dropdown.Item>
+                                    <Dropdown.Item
+                                        onClick={() =>
+                                            this.updateBook(book, "read")
+                                        }
+                                    >
+                                        Read
+                                    </Dropdown.Item>
+                                </DropdownButton>
+                            </div>
+                        </Col>
+                    ))}
                 </Row>
             </div>
         );
