@@ -27,6 +27,17 @@ class Search extends Component {
         }
     };
 
+    updateBook = (book, shelf) => {
+        this.setState((currentState) => ({
+            books: currentState.books.map((b) => {
+                b.id === book.id && (b.shelf = shelf);
+                return b;
+            }),
+        }));
+
+        BooksAPI.update(book, shelf);
+    };
+
     render() {
         return (
             <div>

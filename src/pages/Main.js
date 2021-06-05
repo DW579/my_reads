@@ -17,6 +17,8 @@ class Main extends Component {
                 books,
             }));
         });
+
+        console.log("component did mount")
     }
 
     // On move, update book in state, setState, and then in API. UI will re render on setState.
