@@ -137,6 +137,7 @@ class Search extends Component {
                     <Col size="lg" className="mb-3">
                         <InputGroup>
                             <FormControl
+                                size="lg"
                                 aria-label="Large"
                                 aria-describedby="inputGroup-sizing-sm"
                                 placeholder="Search Titles or Authors"
@@ -145,27 +146,27 @@ class Search extends Component {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="search-back-row">
                     <Col>
-                        <Link to="/">Back</Link>
+                        <Link to="/" className="search-back">Back</Link>
                     </Col>
                 </Row>
                 <Row>
                     {this.state.books.map((book) => (
-                        <Col xs="12" sm="2" key={book.id}>
+                        <Col xs="12" sm="2" key={book.id} className="book-col">
                             <div>
                                 {book.imageLinks !== undefined && (
                                     <img
                                         src={book.imageLinks.thumbnail}
                                         alt=""
+                                        className="book-img"
                                     />
                                 )}
-
-                                <p>{book.title}</p>
+                                <h2 className="book-title">{book.title}</h2>
                                 {book.authors !== undefined &&
                                     book.authors.map((author) => (
-                                        <p key={author}>{author}</p>
-                                    ))}
+                                        <p key={author} className="book-author">{author}</p>
+                                ))}
                                 <DropdownButton title="Move to...">
                                     <Dropdown.Item
                                         onClick={() =>
