@@ -18,7 +18,7 @@ class Main extends Component {
             }));
         });
 
-        console.log("component did mount")
+        console.log("component did mount");
     }
 
     // On move, update book in state, setState, and then in API. UI will re render on setState.
@@ -55,10 +55,12 @@ class Main extends Component {
                         .map((book) => (
                             <Col xs="12" sm="2" key={book.id}>
                                 <div>
-                                    <img
-                                        src={book.imageLinks.thumbnail}
-                                        alt=""
-                                    />
+                                    {book.imageLinks !== undefined && (
+                                        <img
+                                            src={book.imageLinks.thumbnail}
+                                            alt=""
+                                        />
+                                    )}
                                     <p>{book.title}</p>
                                     {book.authors.map((author) => (
                                         <p key={author}>{author}</p>
@@ -107,10 +109,12 @@ class Main extends Component {
                         .map((book) => (
                             <Col xs="12" sm="2" key={book.id}>
                                 <div>
-                                    <img
-                                        src={book.imageLinks.thumbnail}
-                                        alt=""
-                                    />
+                                    {book.imageLinks !== undefined && (
+                                        <img
+                                            src={book.imageLinks.thumbnail}
+                                            alt=""
+                                        />
+                                    )}
                                     <p>{book.title}</p>
                                     {book.authors.map((author) => (
                                         <p key={author}>{author}</p>
@@ -159,10 +163,12 @@ class Main extends Component {
                         .map((book) => (
                             <Col xs="12" sm="2" key={book.id}>
                                 <div>
-                                    <img
-                                        src={book.imageLinks.thumbnail}
-                                        alt=""
-                                    />
+                                    {book.imageLinks !== undefined && (
+                                        <img
+                                            src={book.imageLinks.thumbnail}
+                                            alt=""
+                                        />
+                                    )}
                                     <p>{book.title}</p>
                                     {book.authors.map((author) => (
                                         <p key={author}>{author}</p>
