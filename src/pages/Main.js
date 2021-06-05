@@ -12,13 +12,10 @@ class Main extends Component {
     // componentDidMount getAllBooks from API and store in state
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
-            console.log(books);
             this.setState(() => ({
                 books,
             }));
         });
-
-        console.log("component did mount");
     }
 
     // On move, update book in state, setState, and then in API. UI will re render on setState.
@@ -36,7 +33,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                <Row>
+                <Row className="row-margin-below">
                     <Col>
                         <Navbar bg="dark" variant="dark">
                             <Navbar.Brand href="/">My Reads</Navbar.Brand>
@@ -44,7 +41,7 @@ class Main extends Component {
                         </Navbar>
                     </Col>
                 </Row>
-                <Row>
+                <Row className="row-margin-below">
                     <Col>
                         <h1>Currently Reading</h1>
                     </Col>
@@ -53,17 +50,25 @@ class Main extends Component {
                     {this.state.books
                         .filter((book) => book.shelf === "currentlyReading")
                         .map((book) => (
-                            <Col xs="12" sm="2" key={book.id}>
+                            <Col
+                                xs="12"
+                                sm="2"
+                                key={book.id}
+                                className="book-col"
+                            >
                                 <div>
                                     {book.imageLinks !== undefined && (
                                         <img
                                             src={book.imageLinks.thumbnail}
                                             alt=""
+                                            className="book-img"
                                         />
                                     )}
-                                    <p>{book.title}</p>
+                                    <h2 className="book-title">{book.title}</h2>
                                     {book.authors.map((author) => (
-                                        <p key={author}>{author}</p>
+                                        <p key={author} className="book-author">
+                                            {author}
+                                        </p>
                                     ))}
                                     <DropdownButton title="Move to...">
                                         <Dropdown.Item
@@ -99,6 +104,11 @@ class Main extends Component {
                         ))}
                 </Row>
                 <Row>
+                    <Col>
+                        <div className="seperation-line"></div>
+                    </Col>
+                </Row>
+                <Row className="row-margin-below">
                     <Col>
                         <h1>Want to Read</h1>
                     </Col>
@@ -107,17 +117,25 @@ class Main extends Component {
                     {this.state.books
                         .filter((book) => book.shelf === "wantToRead")
                         .map((book) => (
-                            <Col xs="12" sm="2" key={book.id}>
+                            <Col
+                                xs="12"
+                                sm="2"
+                                key={book.id}
+                                className="book-col"
+                            >
                                 <div>
                                     {book.imageLinks !== undefined && (
                                         <img
                                             src={book.imageLinks.thumbnail}
                                             alt=""
+                                            className="book-img"
                                         />
                                     )}
-                                    <p>{book.title}</p>
+                                    <h2 className="book-title">{book.title}</h2>
                                     {book.authors.map((author) => (
-                                        <p key={author}>{author}</p>
+                                        <p key={author} className="book-author">
+                                            {author}
+                                        </p>
                                     ))}
                                     <DropdownButton title="Move to...">
                                         <Dropdown.Item
@@ -154,6 +172,11 @@ class Main extends Component {
                 </Row>
                 <Row>
                     <Col>
+                        <div className="seperation-line"></div>
+                    </Col>
+                </Row>
+                <Row className="row-margin-below">
+                    <Col>
                         <h1>Read</h1>
                     </Col>
                 </Row>
@@ -161,17 +184,25 @@ class Main extends Component {
                     {this.state.books
                         .filter((book) => book.shelf === "read")
                         .map((book) => (
-                            <Col xs="12" sm="2" key={book.id}>
+                            <Col
+                                xs="12"
+                                sm="2"
+                                key={book.id}
+                                className="book-col"
+                            >
                                 <div>
                                     {book.imageLinks !== undefined && (
                                         <img
                                             src={book.imageLinks.thumbnail}
                                             alt=""
+                                            className="book-img"
                                         />
                                     )}
-                                    <p>{book.title}</p>
+                                    <h2 className="book-title">{book.title}</h2>
                                     {book.authors.map((author) => (
-                                        <p key={author}>{author}</p>
+                                        <p key={author} className="book-author">
+                                            {author}
+                                        </p>
                                     ))}
                                     <DropdownButton title="Move to...">
                                         <Dropdown.Item

@@ -104,8 +104,6 @@ class Search extends Component {
             )
         ) {
             BooksAPI.search(event.target.value).then((books) => {
-                console.log(books);
-
                 if (books.length > 1) {
                     this.setState(() => ({
                         books,
@@ -146,9 +144,11 @@ class Search extends Component {
                         </InputGroup>
                     </Col>
                 </Row>
-                <Row className="search-back-row">
+                <Row className="row-margin-below">
                     <Col>
-                        <Link to="/" className="search-back">Back</Link>
+                        <Link to="/" className="search-back">
+                            Back
+                        </Link>
                     </Col>
                 </Row>
                 <Row>
@@ -165,8 +165,10 @@ class Search extends Component {
                                 <h2 className="book-title">{book.title}</h2>
                                 {book.authors !== undefined &&
                                     book.authors.map((author) => (
-                                        <p key={author} className="book-author">{author}</p>
-                                ))}
+                                        <p key={author} className="book-author">
+                                            {author}
+                                        </p>
+                                    ))}
                                 <DropdownButton title="Move to...">
                                     <Dropdown.Item
                                         onClick={() =>

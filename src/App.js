@@ -6,7 +6,6 @@ import Search from "./pages/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 class App extends Component {
-
     render() {
         return (
             <div>
@@ -16,15 +15,11 @@ class App extends Component {
                             <Route
                                 exact
                                 path="/"
-                                render={() => (
-                                    <Main></Main>
-                                )}
+                                render={() => <Main></Main>}
                             ></Route>
                             <Route
                                 path="/search"
-                                render={() => (
-                                    <Search></Search>
-                                )}
+                                render={() => <Search></Search>}
                             ></Route>
                         </Col>
                     </Row>

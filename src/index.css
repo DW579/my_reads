@@ -22,6 +22,12 @@
   font-size: 25px;
 }
 
-.search-back-row {
+.row-margin-below {
   margin-bottom: 20px;
+}
+
+.seperation-line {
+  border-style: solid none none none;
+  border-color: black;
+  margin: 65px 0;
 }
