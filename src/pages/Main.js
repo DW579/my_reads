@@ -30,6 +30,17 @@ class Main extends Component {
         BooksAPI.update(book, shelf);
     };
 
+    // Remove book from shelf
+    removeBook = (book) => {
+        // Filter out the selected book
+        this.setState((currentState) => ({
+            books: currentState.books.filter((b) => b.id !== book.id)
+        }));
+
+        // Update API to set book shelf to none
+        BooksAPI.update(book, "none")
+    }
+
     render() {
         return (
             <div>
@@ -99,7 +110,9 @@ class Main extends Component {
                                         >
                                             Read
                                         </Dropdown.Item>
-                                        
+                                        <Dropdown.Item onClick={() => this.removeBook(book)}>
+                                            None
+                                        </Dropdown.Item>
                                     </DropdownButton>
                                 </div>
                             </Col>
@@ -168,6 +181,9 @@ class Main extends Component {
                                         >
                                             Read
                                         </Dropdown.Item>
+                                        <Dropdown.Item onClick={() => this.removeBook(book)}>
+                                            None
+                                        </Dropdown.Item>
                                     </DropdownButton>
                                 </div>
                             </Col>
@@ -235,6 +251,9 @@ class Main extends Component {
                                             disabled="true"
                                         >
                                             Read
+                                        </Dropdown.Item>
+                                        <Dropdown.Item onClick={() => this.removeBook(book)}>
+                                            None
                                         </Dropdown.Item>
                                     </DropdownButton>
                                 </div>
