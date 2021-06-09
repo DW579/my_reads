@@ -78,6 +78,7 @@ class Main extends Component {
                                                     "currentlyReading"
                                                 )
                                             }
+                                            disabled="true"
                                         >
                                             Currently Reading
                                         </Dropdown.Item>
@@ -98,6 +99,7 @@ class Main extends Component {
                                         >
                                             Read
                                         </Dropdown.Item>
+                                        
                                     </DropdownButton>
                                 </div>
                             </Col>
@@ -155,6 +157,7 @@ class Main extends Component {
                                                     "wantToRead"
                                                 )
                                             }
+                                            disabled="true"
                                         >
                                             Want to Read
                                         </Dropdown.Item>
@@ -229,6 +232,7 @@ class Main extends Component {
                                             onClick={() =>
                                                 this.updateBook(book, "read")
                                             }
+                                            disabled="true"
                                         >
                                             Read
                                         </Dropdown.Item>
