@@ -40,6 +40,23 @@ class Search extends Component {
         }
     };
 
+    checkShelf = (book, shelf) => {
+        const matched_book = this.state.shelved_books.find(shelved_book => shelved_book.id === book.id);
+        
+        if(matched_book === undefined && shelf === "none") {
+            return true;
+        }
+        else if(matched_book === undefined) {
+            return false;
+        }
+        else if(matched_book.shelf === shelf) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     updateBook = (book, shelf) => {
         this.setState((currentState) => ({
             books: currentState.books.map((b) => {
@@ -51,16 +68,7 @@ class Search extends Component {
         BooksAPI.update(book, shelf);
     };
 
-    checkShelf = (book, shelf) => {
-        const matched_book = this.state.shelved_books.find(shelved_book => shelved_book.id === book.id && shelved_book.shelf === shelf);
-        
-        if(matched_book === undefined) {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
+
 
     render() {
         return (
@@ -131,6 +139,12 @@ class Search extends Component {
                                     >
                                         Read
                                     </Dropdown.Item>
+                                    <Dropdown.Item
+                                        onClick={() =>
+                                            this.updateBook(book, "none")
+                                        }
+                                        disabled={this.checkShelf(book, "none")}
+                                    >None</Dropdown.Item>
                                 </DropdownButton>
                             </div>
                         </Col>
