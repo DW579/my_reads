@@ -12,16 +12,24 @@ import * as BooksAPI from "../utils/BooksAPI";
 
 class Search extends Component {
     state = {
-        books: []
+        books: [],
+        shelved_books: []
     };
 
+    componentDidMount() {
+        BooksAPI.getAll().then((shelved_books) => {
+            this.setState(() => ({
+                shelved_books,
+            }));
+        });
+    }
+
     handleSearch = (event) => {
-
         this.setState(() => ({
-            books: []
-        }))
+            books: [],
+        }));
 
-        if(event.target.value !== "") {
+        if (event.target.value !== "") {
             BooksAPI.search(event.target.value).then((books) => {
                 if (books.length > 1) {
                     this.setState(() => ({
@@ -43,6 +51,17 @@ class Search extends Component {
         BooksAPI.update(book, shelf);
     };
 
+    checkShelf = (book, shelf) => {
+        const matched_book = this.state.shelved_books.find(shelved_book => shelved_book.id === book.id && shelved_book.shelf === shelf);
+        
+        if(matched_book === undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     render() {
         return (
             <div>
@@ -54,7 +73,6 @@ class Search extends Component {
                                 aria-label="Large"
                                 aria-describedby="inputGroup-sizing-sm"
                                 placeholder="Search Titles or Authors"
-                                // onKeyPress={(event) => this.handleSearch(event)}
                                 onChange={(event) => this.handleSearch(event)}
                             />
                         </InputGroup>
@@ -88,13 +106,12 @@ class Search extends Component {
                                 <DropdownButton title="Move to...">
                                     <Dropdown.Item
                                         onClick={() =>
-                                            // this.updateBook(
-                                            //     book,
-                                            //     "currentlyReading"
-                                            // )
-                                            console.log(book)
+                                            this.updateBook(
+                                                book,
+                                                "currentlyReading"
+                                            )
                                         }
-                                        
+                                        disabled={this.checkShelf(book, "currentlyReading")}
                                     >
                                         Currently Reading
                                     </Dropdown.Item>
@@ -102,6 +119,7 @@ class Search extends Component {
                                         onClick={() =>
                                             this.updateBook(book, "wantToRead")
                                         }
+                                        disabled={this.checkShelf(book, "wantToRead")}
                                     >
                                         Want to Read
                                     </Dropdown.Item>
@@ -109,6 +127,7 @@ class Search extends Component {
                                         onClick={() =>
                                             this.updateBook(book, "read")
                                         }
+                                        disabled={this.checkShelf(book, "read")}
                                     >
                                         Read
                                     </Dropdown.Item>
