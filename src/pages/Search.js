@@ -12,97 +12,16 @@ import * as BooksAPI from "../utils/BooksAPI";
 
 class Search extends Component {
     state = {
-        books: [],
-        search_terms: [
-            "android",
-            "art",
-            "artificial intelligence",
-            "astronomy",
-            "austen",
-            "baseball",
-            "basketball",
-            "bhagat",
-            "biography",
-            "brief",
-            "business",
-            "camus",
-            "cervantes",
-            "christie",
-            "classics",
-            "comics",
-            "cook",
-            "cricket",
-            "cycling",
-            "desai",
-            "design",
-            "development",
-            "digital marketing",
-            "drama",
-            "drawing",
-            "dumas",
-            "education",
-            "everything",
-            "fantasy",
-            "film",
-            "finance",
-            "first",
-            "fitness",
-            "football",
-            "future",
-            "games",
-            "gandhi",
-            "homer",
-            "horror",
-            "hugo",
-            "ibsen",
-            "journey",
-            "kafka",
-            "king",
-            "lahiri",
-            "larsson",
-            "learn",
-            "literary fiction",
-            "make",
-            "manage",
-            "marquez",
-            "money",
-            "mystery",
-            "negotiate",
-            "painting",
-            "philosophy",
-            "photography",
-            "poetry",
-            "production",
-            "programming",
-            "react",
-            "redux",
-            "river",
-            "robotics",
-            "rowling",
-            "satire",
-            "science fiction",
-            "shakespeare",
-            "singh",
-            "swimming",
-            "tale",
-            "thrun",
-            "time",
-            "tolstoy",
-            "travel",
-            "ultimate",
-            "virtual reality",
-            "web development",
-            "ios",
-        ],
+        books: []
     };
 
     handleSearch = (event) => {
-        if (
-            event.code === "Enter" &&
-            this.state.search_terms.find(
-                (term) => term === event.target.value.toLowerCase()
-            )
-        ) {
+
+        this.setState(() => ({
+            books: []
+        }))
+
+        if(event.target.value !== "") {
             BooksAPI.search(event.target.value).then((books) => {
                 if (books.length > 1) {
                     this.setState(() => ({
@@ -110,10 +29,6 @@ class Search extends Component {
                     }));
                 }
             });
-        }
-
-        if (event.code === "Enter") {
-            event.target.value = "";
         }
     };
 
@@ -139,7 +54,8 @@ class Search extends Component {
                                 aria-label="Large"
                                 aria-describedby="inputGroup-sizing-sm"
                                 placeholder="Search Titles or Authors"
-                                onKeyPress={(event) => this.handleSearch(event)}
+                                // onKeyPress={(event) => this.handleSearch(event)}
+                                onChange={(event) => this.handleSearch(event)}
                             />
                         </InputGroup>
                     </Col>
@@ -172,11 +88,13 @@ class Search extends Component {
                                 <DropdownButton title="Move to...">
                                     <Dropdown.Item
                                         onClick={() =>
-                                            this.updateBook(
-                                                book,
-                                                "currentlyReading"
-                                            )
+                                            // this.updateBook(
+                                            //     book,
+                                            //     "currentlyReading"
+                                            // )
+                                            console.log(book)
                                         }
+                                        
                                     >
                                         Currently Reading
                                     </Dropdown.Item>
